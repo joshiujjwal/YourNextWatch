@@ -8,7 +8,7 @@
 from django.db import models
 
 class Links(models.Model):
-    movieid = models.TextField(db_column='movieId', blank=True, null=True)  # Field name made lowercase.
+    movieid = models.TextField(db_column='movieId',primary_key=True)  # Field name made lowercase.
     imdbid = models.TextField(db_column='imdbId', blank=True, null=True)  # Field name made lowercase.
     tmdbid = models.TextField(db_column='tmdbId', blank=True, null=True)  # Field name made lowercase.
 
@@ -18,7 +18,7 @@ class Links(models.Model):
 
 
 class Movies(models.Model):
-    movieid = models.IntegerField(db_column='movieId', blank=True, null=True)  # Field name made lowercase.
+    movieid = models.IntegerField(db_column='movieId', primary_key=True)  # Field name made lowercase.
     title = models.TextField(blank=True, null=True)
     genres = models.TextField(blank=True, null=True)
 
