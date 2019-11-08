@@ -20,8 +20,11 @@ def home(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)
-            return render(request,'nxtwatch/play.html', {'category': form.cleaned_data})
+            genres = "|".join(sorted(form.cleaned_data['categories']))
+            movies = []
+            for e in Movies.objects.filter(genres=genres):
+                movies.append(e.title)
+            return render(request,'nxtwatch/play.html', {'movies': movies})
     else:
         form = CategoryForm()
     return render(request, 'home.html', {'form': form})
