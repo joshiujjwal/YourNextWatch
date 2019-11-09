@@ -5,13 +5,20 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
 from .forms import CategoryForm
-from .models import Movies
+from .models import *
 from django.http import HttpResponseRedirect
 from  django.forms import formset_factory
 
 
+class SignUpForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ('username',)
+
+
 class SignUp(generic.CreateView):
-    form_class = UserCreationForm
+    model = User
+    form_class = SignUpForm
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
 
