@@ -24,10 +24,14 @@ class CategoryForm(forms.Form):
 
 class RatingForm(forms.Form):
     CHOICES=[('1','1'),
-         ('2','2'),
-         ('3','3'),
-         ('4','4'),
-         ('5','5'),]
+        ('1.5','1.5'),
+        ('2','2'),
+        ('2.5','2.5'),
+        ('3','3'),
+        ('3.5','3.5'),
+        ('4','4'),
+        ('4.5','4.5'),
+        ('5','5'),]
     rating = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
     movieid = forms.IntegerField(widget = forms.HiddenInput(), required = False)
     title = forms.CharField(required = False)

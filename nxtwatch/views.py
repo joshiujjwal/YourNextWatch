@@ -30,7 +30,8 @@ def home(request):
         if form.is_valid():
             genres = "|".join(sorted(form.cleaned_data['categories']))
             movies = []
-            for e in Movies.objects.filter(genres=genres):
+            existingRatings = Ratings.objects.filter(userid=request.user.id).values_list('movieid',flat=True)
+            for e in Movies.objects.filter(genres=genres).exclude(movieid__in = existingRatings):
                 temp = {}
                 temp["movieid"] = e.movieid
                 temp["title"] = e.title
