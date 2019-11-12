@@ -1,12 +1,17 @@
 <h1> Play Game</h1>
-{{movies}}
-<form method = "post">
+
+
+<form method="post">
     {%csrf_token%}
     {{formset.management_form}}
-
     {% for form in formset %}
-
-    {{form}}
+    {{ form.non_field_errors }}
+    <div class="fieldWrapper">
+        {{ form.rating.errors }}
+        <label for="{{ form.rating.id_for_label }}">{{form.title}}</label>
+        {{form.movieid}}
+        {{ form.rating }}
+    </div>
     <br>
     {%endfor%}
 

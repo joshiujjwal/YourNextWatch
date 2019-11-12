@@ -23,5 +23,6 @@ urlpatterns = [
     path('nxtwatch/',include('nxtwatch.urls')),
     path('nxtwatch/', include('django.contrib.auth.urls')),
     path('nxtwatch/', views.home, name='home'),
-    path('nxtwatch/play/', views.play, name="play")
+    path('nxtwatch/play/', views.play, name="play"),
+    path('nxtwatch/results/', views.results, name="results"),
 ]

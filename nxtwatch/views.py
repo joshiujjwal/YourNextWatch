@@ -30,7 +30,10 @@ def home(request):
             genres = "|".join(sorted(form.cleaned_data['categories']))
             movies = []
             for e in Movies.objects.filter(genres=genres):
-                movies.append(e.title)
+                temp = {}
+                temp["movieid"] = e.movieid
+                temp["title"] = e.title
+                movies.append(temp)
             request.session['movies'] = movies
             return HttpResponseRedirect('/nxtwatch/play')
     else:
@@ -39,7 +42,17 @@ def home(request):
 
 def play(request):
     movies = request.session.get('movies')
-    #print(request.session.get('movies'))
-    RatingFormSet = formset_factory(RatingForm, extra=2)
-    formset = RatingFormSet()
-    return render(request,'nxtwatch/play.html', {'movies': movies, 'formset':formset})
+    RatingFormSet = formset_factory(RatingForm)
+    formset = RatingFormSet(initial=[{'title':movie["title"], 'movieid': movie["movieid"] } for movie in movies])
+    formset.extra -= 1
+    if request.method == 'POST':
+       filled_formset = RatingFormSet(request.POST)
+       for form in filled_formset:
+           if form.is_valid():
+               
+               print(form.cleaned_data)
+       return HttpResponseRedirect('/nxtwatch/results')
+    return render(request,'nxtwatch/play.html', {'formset':formset})
+
+def results(request):
+    return render(request,'nxtwatch/results.html')
