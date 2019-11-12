@@ -8,6 +8,7 @@ from .forms import *
 from .models import *
 from django.http import HttpResponseRedirect
 from  django.forms import formset_factory
+import time
 
 
 class SignUpForm(UserCreationForm):
@@ -42,6 +43,7 @@ def home(request):
 
 def play(request):
     movies = request.session.get('movies')
+    print(len(movies),request.user.id)
     RatingFormSet = formset_factory(RatingForm)
     formset = RatingFormSet(initial=[{'title':movie["title"], 'movieid': movie["movieid"] } for movie in movies])
     formset.extra -= 1
@@ -49,8 +51,12 @@ def play(request):
        filled_formset = RatingFormSet(request.POST)
        for form in filled_formset:
            if form.is_valid():
-               
-               print(form.cleaned_data)
+               ratingObj = Ratings()
+               ratingObj.userid = request.user.id
+               ratingObj.movieid = form.cleaned_data["movieid"]
+               ratingObj.rating = form.cleaned_data["rating"]
+               ratingObj.timestamp = int(time.time())
+               ratingObj.save()
        return HttpResponseRedirect('/nxtwatch/results')
     return render(request,'nxtwatch/play.html', {'formset':formset})
 

@@ -21,7 +21,7 @@ class Movies(models.Model):
 
 
 class Ratings(models.Model):
-    userid = models.IntegerField(blank=True, null=True)  # Field name made lowercase.
+    userid = models.TextField(blank=True, null=True)  # Field name made lowercase.
     movieid = models.IntegerField(blank=True, null=True)  # Field name made lowercase.
     rating = models.TextField(blank=True, null=True)
     timestamp = models.TextField(blank=True, null=True)
