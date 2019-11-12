@@ -22,6 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('nxtwatch/',include('nxtwatch.urls')),
     path('nxtwatch/', include('django.contrib.auth.urls')),
-    path('', views.home, name='home'),
-    path('play/', views.play, name="play")
+    path('nxtwatch/', views.home, name='home'),
+    path('nxtwatch/play/', views.play, name="play")
 ]

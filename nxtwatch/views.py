@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
-from .forms import CategoryForm
+from .forms import *
 from .models import *
 from django.http import HttpResponseRedirect
 from  django.forms import formset_factory
@@ -31,10 +31,15 @@ def home(request):
             movies = []
             for e in Movies.objects.filter(genres=genres):
                 movies.append(e.title)
-            return render(request,'nxtwatch/play.html', {'movies': movies})
+            request.session['movies'] = movies
+            return HttpResponseRedirect('/nxtwatch/play')
     else:
         form = CategoryForm()
     return render(request, 'home.html', {'form': form})
 
 def play(request):
-    return render(request,'nxtwatch/play.html')
+    movies = request.session.get('movies')
+    #print(request.session.get('movies'))
+    RatingFormSet = formset_factory(RatingForm, extra=2)
+    formset = RatingFormSet()
+    return render(request,'nxtwatch/play.html', {'movies': movies, 'formset':formset})

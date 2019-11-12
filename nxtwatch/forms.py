@@ -21,3 +21,11 @@ class CategoryForm(forms.Form):
         ("Western","Western"),
     }
     categories = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,choices=OPTIONS)
+
+class RatingForm(forms.Form):
+    CHOICES=[('1','1'),
+         ('2','2'),
+         ('3','3'),
+         ('4','4'),
+         ('5','5'),]
+    rating = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)

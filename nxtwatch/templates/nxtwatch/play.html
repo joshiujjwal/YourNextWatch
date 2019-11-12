@@ -1,1 +1,14 @@
+<h1> Play Game</h1>
 {{movies}}
+<form method = "post">
+    {%csrf_token%}
+    {{formset.management_form}}
+
+    {% for form in formset %}
+
+    {{form}}
+    <br>
+    {%endfor%}
+
+    <input type="submit" value="Rate movies">
+</form>
