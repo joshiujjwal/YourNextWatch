@@ -34,4 +34,4 @@ class RatingForm(forms.Form):
         ('5','5'),]
     rating = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
     movieid = forms.IntegerField(widget = forms.HiddenInput(), required = False)
-    title = forms.CharField(required = False)
+    title = forms.CharField(required = False, widget=forms.TextInput(attrs={'readonly':'readonly'}))
