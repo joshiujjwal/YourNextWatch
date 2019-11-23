@@ -1,10 +1,13 @@
+{% extends 'base.html' %}
 
+{% block title %}Home{% endblock %}
+
+{% block content %}
 <h1> Play Game</h1>
 <style>
-li {
-    display: inline !important
-}
-
+    li {
+        display: inline !important
+    }
 </style>
 {% if request.session.movies|length > 0 %}
 <form method="post">
@@ -15,20 +18,20 @@ li {
     <div class="fieldWrapper">
         <table>
             <th>
-                    {{ form.rating.errors }}  {{form.movieid}}
+                {{ form.rating.errors }} {{form.movieid}}
             </th>
             <tr>
                 <td>
-                        <label for="{{ form.rating.id_for_label }}">{{form.title}}</label>
+                    <label for="{{ form.rating.id_for_label }}" aria-readonly="true">{{form.title}}</label>
                 </td>
                 <td>
-                        {{ form.rating }}
+                    {{ form.rating }}
                 </td>
             </tr>
         </table>
 
-       
-      
+
+
     </div>
     <br>
     {%endfor%}
@@ -43,3 +46,5 @@ li {
 
 
 {% endif %}
+
+{% endblock %}

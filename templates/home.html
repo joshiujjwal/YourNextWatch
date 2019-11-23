@@ -4,18 +4,48 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">logout</a></p>
-  <p><a href="{% url 'password_reset' %}">reset password</a></p>
+<div class="container">
+    {% if user.is_authenticated %}
+  <nav class="navbar navbar-light bg-light justify-content-between">
+    <a class="navbar-brand">YOUR NEXT WATCH</a>
+   
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        Hi {{ user.username }}!
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="{% url 'logout' %}">logout</a>
+        <a class="dropdown-item" href="{% url 'password_reset' %}">reset password</a>
+      </div>
+    </div>
+ 
+  </nav>
   <form method="post">
-    {%csrf_token%}
-    {{ form.as_p }}
-<input type="submit" value="Play">
-</form>
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
-  <a href="{% url 'signup'%}"> signup </a>
-{% endif %}
+      {%csrf_token%}
+      {{ form.as_p }}
+      <input type="submit" class="btn btn-dark" role="button" value="Play">
+    </form>
+    {% else %}
+    <div class="jumbotron">
+      <h1 class="display-4">Your next Watch</h1>
+      <p class="lead">Confused about what to watch next in binge mode. Play this game and let us decide for you.</p>
+      <p class="lead">
+        <a class="btn btn-light btn-lg" href="{% url 'login' %}" role="button">Login</a>
+        <a class="btn btn-dark btn-lg" href="{% url 'signup'%}" role="button">SignUp</a>
+
+      </p>
+    </div>
+    {% endif %}
+
+
+
+
+
+
+
+
+
+
+</div>
 {% endblock %}
