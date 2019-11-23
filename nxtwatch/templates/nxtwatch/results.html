@@ -1,1 +1,9 @@
-Results PAGE
+<h1>YOU SHOULD WATCH ONE OF THE FOLLOWING MOVIES</h1>
+
+{% for res in results %}
+{{res}}
+<hr>
+{% endfor %}
+
+<p><a href="{% url 'home' %}">play again</a></p>
+

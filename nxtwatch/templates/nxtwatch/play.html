@@ -6,7 +6,7 @@ li {
 }
 
 </style>
-
+{% if request.session.movies|length > 0 %}
 <form method="post">
     {%csrf_token%}
     {{formset.management_form}}
@@ -35,3 +35,11 @@ li {
 
     <input type="submit" value="Rate movies">
 </form>
+
+{% else %}
+
+<h3> Please select another category </h3>
+<p><a href="{% url 'home' %}">Select another category</a></p>
+
+
+{% endif %}
